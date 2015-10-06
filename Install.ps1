@@ -1,4 +1,4 @@
-﻿# Run this in an administrative PowerShell prompt to install the EWSModule PowerShell module:
+﻿# Run this in an administrative PowerShell prompt to install this PowerShell module:
 #
 # 	iex (New-Object Net.WebClient).DownloadString("https://github.com/zloeber/NLogModule/raw/master/Install.ps1")
 
@@ -9,7 +9,7 @@ $GithubURL = 'https://github.com/zloeber/NLogModule'	# Example: https://www.gith
 # Download and install the module
 $webclient = New-Object System.Net.WebClient
 $url = "$GithubURL/archive/master.zip"
-Write-Host "Downloading latest version of EWSModule from $url" -ForegroundColor Cyan
+Write-Host "Downloading latest version of $ModuleName from $url" -ForegroundColor Cyan
 $file = "$($env:TEMP)\$($ModuleName).zip"
 $webclient.DownloadFile($url,$file)
 Write-Host "File saved to $file" -ForegroundColor Green
