@@ -208,6 +208,8 @@ function Remove-NLogDLL
 function Get-LogMessageLayout {
     <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-LogMessageLayout.md
     #>
     [CmdletBinding()]
     param (
@@ -230,6 +232,8 @@ function Get-LogMessageLayout {
 function Get-NewLogConfig {
     <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NewLogConfig.md
     #>
     New-Object NLog.Config.LoggingConfiguration 
 }
@@ -238,6 +242,8 @@ function Get-NewLogConfig {
 function Get-NewLogger {
     <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NewLogger.md
     #>
     param (
         [parameter(mandatory=$true)] 
@@ -251,6 +257,8 @@ function Get-NewLogger {
 function Get-NewLogTarget {
     <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NewLogTarget.md
     #>
     param (
         [parameter(mandatory=$true)]
@@ -274,6 +282,8 @@ function Get-NewLogTarget {
 function Get-NLogDllLoadState {
     <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NLogDllLoadState.md
     #>
     if (-not (get-module | where {($_.Name -eq 'nlog') -or ($_.Name -eq 'Nlog45')})) {
         return $false
@@ -287,6 +297,8 @@ function Get-NLogDllLoadState {
 function Register-NLog {
     <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Register-NLog.md
     #>
     [CmdletBinding()]
     param (
@@ -328,6 +340,8 @@ function Register-NLog {
 function UnRegister-NLog {
         <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/UnRegister-NLog.md
     #>
     [CmdletBinding()]
     param ()
@@ -344,6 +358,8 @@ function UnRegister-NLog {
 Function Write-Debug {
 <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Debug.md
     #>
 
 
@@ -400,6 +416,8 @@ Function Write-Debug {
 Function Write-Error {
 <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Error.md
     #>
 
 
@@ -498,6 +516,8 @@ Function Write-Error {
 Function Write-Host {
 <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Host.md
     #>
 
 
@@ -563,6 +583,8 @@ Function Write-Host {
 Function Write-Output {
 <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Output.md
     #>
     [CmdletBinding(HelpUri='http://go.microsoft.com/fwlink/?LinkID=113427', RemotingCapability='None')]
      param(
@@ -618,6 +640,8 @@ Function Write-Output {
 Function Write-Verbose {
 <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Verbose.md
     #>
 
 
@@ -673,6 +697,8 @@ Function Write-Verbose {
 Function Write-Warning {
 <#
     .EXTERNALHELP NLogModule-help.xml
+    .LINK
+        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Warning.md
     #>
 
 
