@@ -1,4 +1,14 @@
 ﻿function UnRegister-NLog {
+        <#
+    .SYNOPSIS
+        UnRegister the NLog Target..
+    .DESCRIPTION
+        UnRegister the NLog Target..
+        
+    .EXAMPLE
+         UnRegister-NLog
+
+    #>
     [CmdletBinding()]
     param ()
     if ($Script:Logger -ne $null) {

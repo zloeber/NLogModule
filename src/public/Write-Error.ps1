@@ -75,30 +75,6 @@
     
 .OUTPUTS
     Error object
-    
-.LINK
-    http://go.microsoft.com/fwlink/p/?linkid=294028
-    
-.LINK
-    Online Version:
-    
-.LINK
-    Write-Debug
-    
-.LINK
-    Write-Host
-    
-.LINK
-    Write-Output
-    
-.LINK
-    Write-Progress
-    
-.LINK
-    Write-Verbose
-    
-.LINK
-    Write-Warning
 #>
 
 

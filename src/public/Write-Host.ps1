@@ -45,36 +45,6 @@
     
 .OUTPUTS
     None
-    
-.LINK
-    http://go.microsoft.com/fwlink/p/?linkid=294029
-    
-.LINK
-    Online Version:
-    
-.LINK
-    Clear-Host
-    
-.LINK
-    Out-Host
-    
-.LINK
-    Write-Debug
-    
-.LINK
-    Write-Error
-    
-.LINK
-    Write-Output
-    
-.LINK
-    Write-Progress
-    
-.LINK
-    Write-Verbose
-    
-.LINK
-    Write-Warning
 #>
 
 

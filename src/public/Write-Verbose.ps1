@@ -29,21 +29,6 @@
     
 .OUTPUTS
     None
-    
-.LINK
-    http://go.microsoft.com/fwlink/p/?linkid=294032
-    
-.LINK
-    Online Version:
-    
-.LINK
-    Write-Error
-    
-.LINK
-    Write-Warning
-    
-.LINK
-    about_Preference_Variables
 #>
 
 

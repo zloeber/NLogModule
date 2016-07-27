@@ -56,36 +56,6 @@
     
 .OUTPUTS
     None
-    
-.LINK
-    http://go.microsoft.com/fwlink/p/?linkid=294033
-    
-.LINK
-    Online Version:
-    
-.LINK
-    Write-Debug
-    
-.LINK
-    Write-Error
-    
-.LINK
-    Write-Host
-    
-.LINK
-    Write-Output
-    
-.LINK
-    Write-Progress
-    
-.LINK
-    Write-Verbose
-    
-.LINK
-    about_CommonParameters
-    
-.LINK
-    about_Preference_Variables
 #>
 
 

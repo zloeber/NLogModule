@@ -65,8 +65,7 @@
         }
     }
 
-    end
-    {
+    end {
         # List of preference variables taken from the about_Preference_Variables help file in PowerShell version 4.0
 
         $vars = @{
@@ -102,34 +101,26 @@
             'WarningPreference' = 'WarningAction'
         }
 
-
-        foreach ($entry in $vars.GetEnumerator())
-        {
+        foreach ($entry in $vars.GetEnumerator()) {
             if (([string]::IsNullOrEmpty($entry.Value) -or -not $Cmdlet.MyInvocation.BoundParameters.ContainsKey($entry.Value)) -and
-                ($PSCmdlet.ParameterSetName -eq 'AllVariables' -or $filterHash.ContainsKey($entry.Name)))
-            {
+                ($PSCmdlet.ParameterSetName -eq 'AllVariables' -or $filterHash.ContainsKey($entry.Name))) {
+                
                 $variable = $Cmdlet.SessionState.PSVariable.Get($entry.Key)
                 
-                if ($null -ne $variable)
-                {
-                    if ($SessionState -eq $ExecutionContext.SessionState)
-                    {
+                if ($null -ne $variable) {
+                    if ($SessionState -eq $ExecutionContext.SessionState) {
                         Set-Variable -Scope 1 -Name $variable.Name -Value $variable.Value -Force -Confirm:$false -WhatIf:$false
                     }
-                    else
-                    {
+                    else {
                         $SessionState.PSVariable.Set($variable.Name, $variable.Value)
                     }
                 }
             }
         }
 
-        if ($PSCmdlet.ParameterSetName -eq 'Filtered')
-        {
-            foreach ($varName in $filterHash.Keys)
-            {
-                if (-not $vars.ContainsKey($varName))
-                {
+        if ($PSCmdlet.ParameterSetName -eq 'Filtered') {
+            foreach ($varName in $filterHash.Keys) {
+                if (-not $vars.ContainsKey($varName)) {
                     $variable = $Cmdlet.SessionState.PSVariable.Get($varName)
                 
                     if ($null -ne $variable)

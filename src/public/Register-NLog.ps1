@@ -1,4 +1,16 @@
 ﻿function Register-NLog {
+    <#
+    .SYNOPSIS
+        Register the NLog dlls and create a file logging target.        
+    .DESCRIPTION
+        Register the NLog dlls and create a file logging target.
+    .PARAMETER FileName
+        File to start logging to
+    .PARAMETER loggername
+        An Nlog name (useful for multiple logging targets)
+    .EXAMPLE
+        Register-NLog -FileName C:\temp\testlogger.log
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $True)]

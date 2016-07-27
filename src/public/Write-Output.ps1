@@ -30,7 +30,7 @@
     PS C:\>write-output @(1,2,3) | measure
     
     Count    : 3
-...
+
     PS C:\>write-output @(1,2,3) -NoEnumerate | measure
     
     Count    : 1
@@ -41,33 +41,6 @@
     
 .OUTPUTS
     System.Management.Automation.PSObject
-    
-.LINK
-    http://go.microsoft.com/fwlink/p/?linkid=294030
-    
-.LINK
-    Online Version:
-    
-.LINK
-    Tee-Object
-    
-.LINK
-    Write-Debug
-    
-.LINK
-    Write-Error
-    
-.LINK
-    Write-Host
-    
-.LINK
-    Write-Progress
-    
-.LINK
-    Write-Verbose
-    
-.LINK
-    Write-Warning
 #>
     [CmdletBinding(HelpUri='http://go.microsoft.com/fwlink/?LinkID=113427', RemotingCapability='None')]
      param(
