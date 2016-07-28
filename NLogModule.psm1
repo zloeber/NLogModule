@@ -2,21 +2,25 @@
 
 #region Private Variables
 # Current script path
-[string]$ScriptPath = Split-Path (get-variable myinvocation -scope script).value.Mycommand.Definition -Parent
+#[string]$ScriptPath = Split-Path (get-variable myinvocation -scope script).value.Mycommand.Definition -Parent
+[string]$ScriptPath = $MyInvocation.MyCommand.ScriptBlock.Module.ModuleBase
+#write-host $Scriptpath
+
+
 [bool]$ThisModuleLoaded = $true
 #endregion Private Variables
 
 # Module Pre-Load code
-. .\src\other\PreLoad.ps1
+. "$($Script:ScriptPath)\src\other\PreLoad.ps1"
 
 # Private and other methods and variables
-Get-ChildItem '.\src\private' -Recurse -Filter "*.ps1" -File | Sort-Object Name | Foreach { 
+Get-ChildItem "$($ScriptPath)\src\private" -Recurse -Filter "*.ps1" -File | Sort-Object Name | Foreach { 
     Write-Verbose "Dot sourcing private script file: $($_.Name)"
     . $_.FullName
 }
 
 # Load and export public methods
-Get-ChildItem '.\src\public' -Recurse -Filter "*.ps1" -File | Sort-Object Name | Foreach { 
+Get-ChildItem "$($Script:ScriptPath)\src\public" -Recurse -Filter "*.ps1" -File | Sort-Object Name | Foreach { 
     Write-Verbose "Dot sourcing public script file: $($_.Name)"
     . $_.FullName
 
@@ -28,4 +32,4 @@ Get-ChildItem '.\src\public' -Recurse -Filter "*.ps1" -File | Sort-Object Name |
 }
 
 # Module Post-Load code
-. .\src\other\PostLoad.ps1
+ . "$($Script:ScriptPath)\src\other\PostLoad.ps1"
