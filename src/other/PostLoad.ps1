@@ -1,11 +1,3 @@
-
-<#
- Created on:   6/25/2015 10:01 AM
- Created by:   Zachary Loeber
- Module Name:  NLogModule
- Requires: http://nlog-project.org/
-#>
-
 function Get-ScriptDirectory
 {
     $Invocation = (Get-Variable MyInvocation -Scope 1).Value;
@@ -24,7 +16,6 @@ function Get-ScriptDirectory
 }
 
 $MyModulePath = Get-ScriptDirectory
-Write-Host $MyModulePath
 
 try {
     $DotNetInstalled = (Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -recurse | 
@@ -47,7 +38,7 @@ else {
 }
 
 try {
-    Write-Host "Attempting to import $($__dllPath)..."
+    #Write-Host "Attempting to import $($__dllPath)..."
     Import-Module -Name $__dllPath -ErrorAction Stop
 }
 catch {
@@ -57,9 +48,10 @@ catch {
 $Logger = $null
 $NLogConfig = Get-NewLogConfig
 
-Export-ModuleMember -Variable NLogConfig -Function  'Get-LogMessageLayout', 'Get-NewLogConfig', 'Get-NewLogger', 'Get-NewLogTarget', 'Get-NLogDllLoadState', 'Register-NLog', 'UnRegister-NLog', 'Write-Debug', 'Write-Error', 'Write-Host', 'Write-Output', 'Write-Verbose', 'Write-Warning'
-
 #region Module Cleanup
 $ExecutionContext.SessionState.Module.OnRemove = {Remove-NLogDLL} 
 $null = Register-EngineEvent -SourceIdentifier ( [System.Management.Automation.PsEngineEvent]::Exiting ) -Action {Remove-NLogDLL}
 #endregion Module Cleanup
+
+# Exported members
+Export-ModuleMember -Variable NLogConfig -Function  'Get-LogMessageLayout', 'Get-NewLogConfig', 'Get-NewLogger', 'Get-NewLogTarget', 'Get-NLogDllLoadState', 'Register-NLog', 'UnRegister-NLog', 'Write-Debug', 'Write-Error', 'Write-Host', 'Write-Output', 'Write-Verbose', 'Write-Warning'

@@ -766,7 +766,7 @@ else {
 }
 
 try {
-    #Write-Host "Attempting to import $($__dllPath)..."
+    Write-Host "Attempting to import $($__dllPath)..."
     Import-Module -Name $__dllPath -ErrorAction Stop
 }
 catch {
