@@ -1,10 +1,11 @@
----
+﻿---
 external help file: NLogModule-help.xml
 online version: 
 schema: 2.0.0
 ---
 
 # UnRegister-NLog
+
 ## SYNOPSIS
 UnRegister the NLog Target..
 

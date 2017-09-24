@@ -1,10 +1,11 @@
----
+﻿---
 external help file: NLogModule-help.xml
-online version: http://go.microsoft.com/fwlink/p/?linkid=294032
+online version: http://go.microsoft.com/fwlink/?LinkId=821880
 schema: 2.0.0
 ---
 
 # Write-Verbose
+
 ## SYNOPSIS
 Writes text to the verbose message stream.
 Writes text to the verbose message stream.
@@ -12,7 +13,7 @@ Writes text to the verbose message stream.
 ## SYNTAX
 
 ```
-Write-Verbose [-Message] <String> [-InformationAction <ActionPreference>] [-InformationVariable <String>]
+Write-Verbose [-Message] <String>
 ```
 
 ## DESCRIPTION
@@ -50,10 +51,10 @@ The first command assigns a value of "Continue" to the $VerbosePreference prefer
 The default value, "SilentlyContinue", suppresses verbose messages.
 The second command writes a verbose message.
 
-### -------------------------- EXAMPLE 1 --------------------------
+### Example 1: Write a status message
 ```
 PS C:\>Write-Verbose -Message "Searching the Application Event Log."
-PS C:\>Write-Verbose -Message "Searching the Application Event Log." -verbose
+PS C:\>Write-Verbose -Message "Searching the Application Event Log." -Verbose
 ```
 
 These commands use the Write-Verbose cmdlet to display a status message.
@@ -61,7 +62,7 @@ By default, the message is not displayed.
 
 The second command uses the Verbose common parameter, which displays any verbose messages, regardless of the value of the $VerbosePreference variable.
 
-### -------------------------- EXAMPLE 2 --------------------------
+### Example 2: Set $VerbosePreference and write a status message
 ```
 PS C:\>$VerbosePreference = "Continue"
 PS C:\>Write-Verbose "Copying file $filename"
@@ -70,8 +71,8 @@ PS C:\>Write-Verbose "Copying file $filename"
 These commands use the Write-Verbose cmdlet to display a status message.
 By default, the message is not displayed.
 
-The first command assigns a value of "Continue" to the $VerbosePreference preference variable.
-The default value, "SilentlyContinue", suppresses verbose messages.
+The first command assigns a value of Continue to the $VerbosePreference preference variable.
+The default value, SilentlyContinue, suppresses verbose messages.
 The second command writes a verbose message.
 
 ## PARAMETERS
@@ -79,7 +80,7 @@ The second command writes a verbose message.
 ### -Message
 Specifies the message to display.
 This parameter is required.
-You can also pipe a message string to Write-Verbose.
+You can also pipe a message string to Write-Verbose .
 
 ```yaml
 Type: String
@@ -87,40 +88,9 @@ Parameter Sets: (All)
 Aliases: Msg
 
 Required: True
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -InformationAction
-@{Text=}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: infa
-Accepted values: SilentlyContinue, Stop, Continue, Inquire, Ignore, Suspend
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -InformationVariable
-@{Text=}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: iv
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -129,7 +99,7 @@ Accept wildcard characters: False
 ### System.String
 
 ### System.String
-You can pipe a string that contains the message to Write-Verbose.
+You can pipe a string that contains the message to Write-Verbose .
 
 ## OUTPUTS
 
@@ -144,17 +114,24 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 In Windows PowerShell background jobs and remote commands, the $VerbosePreference variable in the job session and remote session determine whether the verbose message is displayed by default.
 For more information about the $VerbosePreference variable, see about_Preference_Variables (http://go.microsoft.com/fwlink/?LinkID=113248).
 
-Verbose messages are returned only when the command uses the Verbose common parameter.
+Verbose messages are returned only when the command uses the Verbose * common parameter.
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
-
 In Windows PowerShell background jobs and remote commands, the $VerbosePreference variable in the job session and remote session determine whether the verbose message is displayed by default.
-For more information about the $VerbosePreference variable, see about_Preference_Variables (http://go.microsoft.com/fwlink/?LinkID=113248).
+For more information about the $VerbosePreference * variable, see about_Preference_Variables (http://go.microsoft.com/fwlink/?LinkID=113248).
 
 ## RELATED LINKS
 
+[Write-Debug]()
+
 [Write-Error]()
 
-[Write-Warning]()
+[Write-Host]()
 
-[about_Preference_Variables]()
+[Write-Information]()
+
+[Write-Output]()
+
+[Write-Progress]()
+
+[Write-Warning]()
 

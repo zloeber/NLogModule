@@ -1,14 +1,14 @@
 ﻿---
 Module Name: NLogModule
 Module Guid: 00000000-0000-0000-0000-000000000000
-Download Help Link: https://github.com/zloeber/NLogModule/release/NLogModule/docs/NLogModule.md
+Download Help Link: https://github.com/zloeber/nlogmodule/release/NLogModule/docs/NLogModule.md
 Help Version: 0.0.1
 Locale: en-US
 ---
 
 # NLogModule Module
 ## Description
-Use NLog to capture and log all calls to write-output, verbose, warning, error, and host
+NLog PowerShell wrapper
 
 ## NLogModule Cmdlets
 ### [Get-LogMessageLayout](Get-LogMessageLayout.md)

@@ -1,4 +1,4 @@
-﻿Function Write-Verbose {
+﻿function Write-Verbose {
 <#
 .SYNOPSIS
     Writes text to the verbose message stream.

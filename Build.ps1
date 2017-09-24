@@ -1,101 +1,110 @@
 #Requires -Version 5
+[CmdletBinding(DefaultParameterSetName = 'Build')]
 param (
+    [parameter(Position = 0, ParameterSetName = 'Build')]
     [switch]$BuildModule,
-    [switch]$CreatePSGalleryProfile,
-    [switch]$UpdateRelease,
+    [parameter(Position = 2, ParameterSetName = 'Build')]
     [switch]$UploadPSGallery,
-    [switch]$GitCheckin,
-    [switch]$GitPush,
+    [parameter(Position = 3, ParameterSetName = 'Build')]
     [switch]$InstallAndTestModule,
+    [parameter(Position = 4, ParameterSetName = 'Build')]
     [version]$NewVersion,
-    [string]$ReleaseNotes
+    [parameter(Position = 5, ParameterSetName = 'Build')]
+    [string]$ReleaseNotes,
+    [parameter(Position = 6, ParameterSetName = 'CBH')]
+    [switch]$InsertCBH
 )
 
-# Install InvokeBuild module if it doesn't already exist
-if ((get-module InvokeBuild -ListAvailable) -eq $null) {
-    Write-Host -NoNewLine "      Installing InvokeBuild module"
-    $null = Install-Module InvokeBuild
-    Write-Host -ForegroundColor Green '...Installed!'
-}
-if (get-module InvokeBuild -ListAvailable) {
-    Write-Host -NoNewLine "      Importing InvokeBuild module"
-    Import-Module InvokeBuild -Force
-    Write-Host -ForegroundColor Green '...Loaded!'
-}
-else {
-    throw 'How did you even get here?'
-}
-
-# Create a gallery profile?
-if ($CreatePSGalleryProfile) {
+function PrerequisitesLoaded {
+    # Install required modules if missing
     try {
-        Invoke-Build NewPSGalleryProfile
+        if ((get-module InvokeBuild -ListAvailable) -eq $null) {
+            Write-Output "Attempting to install the InvokeBuild module..."
+            $null = Install-Module InvokeBuild -Scope:CurrentUser
+        }
+        if (get-module InvokeBuild -ListAvailable) {
+            Write-Output -NoNewLine "Importing InvokeBuild module"
+            Import-Module InvokeBuild -Force
+            Write-Output '...Loaded!'
+            return $true
+        }
+        else {
+            return $false
+        }
     }
     catch {
-        throw 'Unable to create the .psgallery profile file!'
+        return $false
     }
 }
 
-# Update your release version?
-if ($UpdateRelease) {
-    if ($NewVersion -ne $null) {
-        $NewVersion.ToString() | Out-File -FilePath .\version.txt -Force
-    }
-
+function CleanUp {
     try {
-        Invoke-Build UpdateVersion
+        Write-Output ''
+        Write-Output 'Attempting to clean up the session (loaded modules and such)...'
+        Invoke-Build -Task BuildSessionCleanup
+        Remove-Module InvokeBuild
     }
-    catch {
-        throw
-    }
+    catch {}
 }
 
-# If no parameters were specified or the build action was manually specified then kick off a standard build
-if (($psboundparameters.count -eq 0) -or ($BuildModule))  {
-    try {
-        Invoke-Build
-    }
-    catch {
-        Write-Host -ForegroundColor Red 'Build Failed with the following error:'
-        Write-Output $_
-    }
+if (-not (PrerequisitesLoaded)) {
+    throw 'Unable to load InvokeBuild!'
 }
 
-# Install and test the module?
-if ($InstallAndTestModule) {
-    try {
-        Invoke-Build InstallAndTestModule
+switch ($psCmdlet.ParameterSetName) {
+    'CBH' {
+        if ($InsertCBH) {
+            try {
+                Invoke-Build -Task InsertMissingCBH
+            }
+            catch {
+                throw
+            }
+        }
+
+        CleanUp
     }
-    catch {
-        Write-Host -ForegroundColor Red 'Install and test of module failed:'
-        Write-Output $_
+    'Build' {
+        if ($NewVersion -ne $null) {
+            try {
+                Invoke-Build -Task UpdateVersion -NewVersion $NewVersion -ReleaseNotes $ReleaseNotes
+            }
+            catch {
+                throw $_
+            }
+        }
+        # If no parameters were specified or the build action was manually specified then kick off a standard build
+        if (($psboundparameters.count -eq 0) -or ($BuildModule)) {
+            try {
+                Invoke-Build
+            }
+            catch {
+                Write-Output 'Build Failed with the following error:'
+                Write-Output $_
+            }
+        }
+
+        # Install and test the module?
+        if ($InstallAndTestModule) {
+            try {
+                Invoke-Build -Task InstallAndTestModule
+            }
+            catch {
+                Write-Output 'Install and test of module failed:'
+                Write-Output $_
+            }
+        }
+
+        # Upload to gallery?
+        if ($UploadPSGallery) {
+            try {
+                Invoke-Build -Task PublishPSGallery
+            }
+            catch {
+                throw 'Unable to upload project to the PowerShell Gallery!'
+            }
+        }
+
+        CleanUp
     }
 }
-
-# Upload to gallery?
-if ($UploadPSGallery) {
-    if ([string]::IsNullOrEmpty($ReleaseNotes)) {
-        throw '$ReleaseNotes needs to be specified to run this operation!'
-    }
-    try {
-        Invoke-Build PublishPSGallery -ReleaseNotes $ReleaseNotes
-    }
-    catch {
-        throw 'Unable to upload projec to the PowerShell Gallery!'
-    }
-}
-
-# Not implemented yet
-if ($GitCheckin) {
-
-}
-
-# Not implemented yet
-if ($GitPush) {
-
-}
-
-Write-Host ''
-Write-Host 'Attempting to clean up the session (loaded modules and such)...'
-Invoke-Build BuildSessionCleanup
-Remove-Module InvokeBuild

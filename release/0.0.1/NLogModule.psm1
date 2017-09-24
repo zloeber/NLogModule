@@ -1,11 +1,12 @@
 ﻿## Pre-Loaded Module code ##
 
-
 <#
- Created on:   6/25/2015 10:01 AM
- Created by:   Zachary Loeber
- Module Name:  NLogModule
- Requires: http://nlog-project.org/
+ Put all code that must be run prior to function dot sourcing here.
+
+ This is a good place for module variables as well. The only rule is that no 
+ variable should rely upon any of the functions in your module as they 
+ will not have been loaded yet. Also, this file cannot be completely
+ empty. Even leaving this comment is good enough.
 #>
 
 ## PRIVATE MODULE FUNCTIONS AND DATA ##
@@ -175,13 +176,14 @@ function Remove-NLogDLL
     }
 }
 
+
 ## PUBLIC MODULE FUNCTIONS AND DATA ##
 
 function Get-LogMessageLayout {
     <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-LogMessageLayout.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Get-LogMessageLayout.md
     #>
     [CmdletBinding()]
     param (
@@ -201,21 +203,23 @@ function Get-LogMessageLayout {
 }
 
 
+
 function Get-NewLogConfig {
     <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NewLogConfig.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Get-NewLogConfig.md
     #>
     New-Object NLog.Config.LoggingConfiguration 
 }
+
 
 
 function Get-NewLogger {
     <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NewLogger.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Get-NewLogger.md
     #>
     param (
         [parameter(mandatory=$true)] 
@@ -226,11 +230,12 @@ function Get-NewLogger {
 }
 
 
+
 function Get-NewLogTarget {
     <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NewLogTarget.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Get-NewLogTarget.md
     #>
     param (
         [parameter(mandatory=$true)]
@@ -251,11 +256,12 @@ function Get-NewLogTarget {
 }
 
 
+
 function Get-NLogDllLoadState {
     <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Get-NLogDllLoadState.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Get-NLogDllLoadState.md
     #>
     if (-not (get-module | where {($_.Name -eq 'nlog') -or ($_.Name -eq 'Nlog45')})) {
         return $false
@@ -266,11 +272,12 @@ function Get-NLogDllLoadState {
 }
 
 
+
 function Register-NLog {
     <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Register-NLog.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Register-NLog.md
     #>
     [CmdletBinding()]
     param (
@@ -309,11 +316,12 @@ function Register-NLog {
 }
 
 
+
 function UnRegister-NLog {
         <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/UnRegister-NLog.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/UnRegister-NLog.md
     #>
     [CmdletBinding()]
     param ()
@@ -327,11 +335,12 @@ function UnRegister-NLog {
 }
 
 
-Function Write-Debug {
+
+function Write-Debug {
 <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Debug.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Write-Debug.md
     #>
 
 
@@ -385,11 +394,11 @@ Function Write-Debug {
 
 
 
-Function Write-Error {
+function Write-Error {
 <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Error.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Write-Error.md
     #>
 
 
@@ -485,11 +494,12 @@ Function Write-Error {
 }
 
 
-Function Write-Host {
+
+function Write-Host {
 <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Host.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Write-Host.md
     #>
 
 
@@ -552,11 +562,12 @@ Function Write-Host {
 }
 
 
-Function Write-Output {
+
+function Write-Output {
 <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Output.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Write-Output.md
     #>
     [CmdletBinding(HelpUri='http://go.microsoft.com/fwlink/?LinkID=113427', RemotingCapability='None')]
      param(
@@ -609,11 +620,12 @@ Function Write-Output {
 }
 
 
-Function Write-Verbose {
+
+function Write-Verbose {
 <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Verbose.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Write-Verbose.md
     #>
 
 
@@ -666,11 +678,12 @@ Function Write-Verbose {
 }
 
 
-Function Write-Warning {
+
+function Write-Warning {
 <#
     .EXTERNALHELP NLogModule-help.xml
     .LINK
-        https://github.com/zloeber/NLogModule/tree/master/release/0.0.1/docs/Write-Warning.md
+        https://github.com/zloeber/nlogmodule/tree/master/release/0.0.1/docs/Functions/Write-Warning.md
     #>
 
 
@@ -724,35 +737,42 @@ Function Write-Warning {
 }
 
 
+
 ## Post-Load Module code ##
 
 
-<#
- Created on:   6/25/2015 10:01 AM
- Created by:   Zachary Loeber
- Module Name:  NLogModule
- Requires: http://nlog-project.org/
-#>
+# Use this variable for any path-sepecific actions (like loading dlls and such) to ensure it will work in testing and after being built
+$MyModulePath = $(
+    Function Get-ScriptPath {
+        $Invocation = (Get-Variable MyInvocation -Scope 1).Value
+        if($Invocation.PSScriptRoot) {
+            $Invocation.PSScriptRoot
+        }
+        Elseif($Invocation.MyCommand.Path) {
+            Split-Path $Invocation.MyCommand.Path
+        }
+        elseif ($Invocation.InvocationName.Length -eq 0) {
+            (Get-Location).Path
+        }
+        else {
+            $Invocation.InvocationName.Substring(0,$Invocation.InvocationName.LastIndexOf("\"));
+        }
+    }
 
-function Get-ScriptDirectory
-{
-    $Invocation = (Get-Variable MyInvocation -Scope 1).Value;
-    if($Invocation.PSScriptRoot)
-    {
-        $Invocation.PSScriptRoot;
-    }
-    Elseif($Invocation.MyCommand.Path)
-    {
-        Split-Path $Invocation.MyCommand.Path
-    }
-    else
-    {
-        $Invocation.InvocationName.Substring(0,$Invocation.InvocationName.LastIndexOf("\"));
-    }
+    Get-ScriptPath
+)
+
+#region Module Cleanup
+$ExecutionContext.SessionState.Module.OnRemove = {
+    # Action to take if the module is removed
 }
 
-$MyModulePath = Get-ScriptDirectory
-Write-Host $MyModulePath
+$null = Register-EngineEvent -SourceIdentifier ( [System.Management.Automation.PsEngineEvent]::Exiting ) -Action {
+    # Action to take if the whole pssession is killed
+}
+
+# Use this in your scripts to check if the function is being called from your module or independantly.
+$ThisModuleLoaded = $true
 
 try {
     $DotNetInstalled = (Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -recurse | 
@@ -775,7 +795,7 @@ else {
 }
 
 try {
-    Write-Host "Attempting to import $($__dllPath)..."
+    #Write-Host "Attempting to import $($__dllPath)..."
     Import-Module -Name $__dllPath -ErrorAction Stop
 }
 catch {
@@ -785,11 +805,13 @@ catch {
 $Logger = $null
 $NLogConfig = Get-NewLogConfig
 
-Export-ModuleMember -Variable NLogConfig -Function  'Get-LogMessageLayout', 'Get-NewLogConfig', 'Get-NewLogger', 'Get-NewLogTarget', 'Get-NLogDllLoadState', 'Register-NLog', 'UnRegister-NLog', 'Write-Debug', 'Write-Error', 'Write-Host', 'Write-Output', 'Write-Verbose', 'Write-Warning'
-
 #region Module Cleanup
 $ExecutionContext.SessionState.Module.OnRemove = {Remove-NLogDLL} 
 $null = Register-EngineEvent -SourceIdentifier ( [System.Management.Automation.PsEngineEvent]::Exiting ) -Action {Remove-NLogDLL}
 #endregion Module Cleanup
+
+# Exported members
+Export-ModuleMember -Variable NLogConfig -Function  'Get-LogMessageLayout', 'Get-NewLogConfig', 'Get-NewLogger', 'Get-NewLogTarget', 'Get-NLogDllLoadState', 'Register-NLog', 'UnRegister-NLog', 'Write-Debug', 'Write-Error', 'Write-Host', 'Write-Output', 'Write-Verbose', 'Write-Warning'
+
 
 

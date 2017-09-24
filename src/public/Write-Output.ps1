@@ -1,4 +1,4 @@
-﻿Function Write-Output {
+﻿function Write-Output {
 <#
 .SYNOPSIS
     Sends the specified objects to the next command in the pipeline. If the command is the last command in the pipeline, the objects are displayed in the console.

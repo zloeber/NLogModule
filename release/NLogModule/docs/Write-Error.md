@@ -1,10 +1,11 @@
----
+﻿---
 external help file: NLogModule-help.xml
-online version: http://go.microsoft.com/fwlink/p/?linkid=294028
+online version: http://go.microsoft.com/fwlink/?LinkId=821875
 schema: 2.0.0
 ---
 
 # Write-Error
+
 ## SYNOPSIS
 Writes an object to the error stream.
 Writes an object to the error stream.
@@ -13,25 +14,22 @@ Writes an object to the error stream.
 
 ### NoException (Default)
 ```
-Write-Error [-Message] <String> [-Category <ErrorCategory>] [-ErrorId <String>] [-TargetObject <Object>]
+Write-Error -Message <String> [-Category <ErrorCategory>] [-ErrorId <String>] [-TargetObject <Object>]
  [-RecommendedAction <String>] [-CategoryActivity <String>] [-CategoryReason <String>]
- [-CategoryTargetName <String>] [-CategoryTargetType <String>] [-InformationAction <ActionPreference>]
- [-InformationVariable <String>]
+ [-CategoryTargetName <String>] [-CategoryTargetType <String>]
 ```
 
 ### WithException
 ```
-Write-Error -Exception <Exception> [[-Message] <String>] [-Category <ErrorCategory>] [-ErrorId <String>]
+Write-Error -Exception <Exception> [-Message <String>] [-Category <ErrorCategory>] [-ErrorId <String>]
  [-TargetObject <Object>] [-RecommendedAction <String>] [-CategoryActivity <String>] [-CategoryReason <String>]
- [-CategoryTargetName <String>] [-CategoryTargetType <String>] [-InformationAction <ActionPreference>]
- [-InformationVariable <String>]
+ [-CategoryTargetName <String>] [-CategoryTargetType <String>]
 ```
 
 ### ErrorRecord
 ```
 Write-Error -ErrorRecord <ErrorRecord> [-RecommendedAction <String>] [-CategoryActivity <String>]
  [-CategoryReason <String>] [-CategoryTargetName <String>] [-CategoryTargetType <String>]
- [-InformationAction <ActionPreference>] [-InformationVariable <String>]
 ```
 
 ## DESCRIPTION
@@ -97,14 +95,14 @@ You can use a hash table to create any object of a type that has a null construc
 The second command uses the Write-Error cmdlet to declare a non-terminating error.
 The value of the Exception parameter is the Exception object in the $e variable.
 
-### -------------------------- EXAMPLE 1 --------------------------
+### Example 1: Write an error for RegistryKey object
 ```
 PS C:\>Get-ChildItem | ForEach-Object { if ($_.GetType().ToString() -eq "Microsoft.Win32.RegistryKey") {Write-Error "Invalid object" -ErrorID B1 -Targetobject $_ } else {$_ } }
 ```
 
 This command declares a non-terminating error when the Get-ChildItem cmdlet returns a Microsoft.Win32.RegistryKey object, such as the objects in the HKLM: or HKCU: drives of the Windows PowerShell Registry provider.
 
-### -------------------------- EXAMPLE 2 --------------------------
+### Example 2: Write an error message to the console
 ```
 PS C:\>Write-Error "Access denied."
 ```
@@ -112,27 +110,27 @@ PS C:\>Write-Error "Access denied."
 This command declares a non-terminating error and writes an "Access denied" error.
 The command uses the Message parameter to specify the message, but omits the optional Message parameter name.
 
-### -------------------------- EXAMPLE 3 --------------------------
+### Example 3: Write an error to the console and specify the category
 ```
 PS C:\>Write-Error -Message "Error: Too many input values." -Category InvalidArgument
 ```
 
 This command declares a non-terminating error and specifies an error category.
 
-### -------------------------- EXAMPLE 4 --------------------------
+### Example 4: Write an error using an Exception object
 ```
-PS C:\>$e = [System.Exception]@{$e = [System.Exception]@{Source="Get-ParameterNames.ps1";HelpLink="http://go.microsoft.com/fwlink/?LinkID=113425"}HelpLink="http://go.microsoft.com/fwlink/?LinkID=113425"}
-PS C:\> Write-Error $e -Message "Files not found. The $Files location does not contain any XML files."
+PS C:\>$E = [System.Exception]@{$e = [System.Exception]@{Source="Get-ParameterNames.ps1";HelpLink="http://go.microsoft.com/fwlink/?LinkID=113425"}HelpLink="http://go.microsoft.com/fwlink/?LinkID=113425"}
+PS C:\> Write-Error $E -Message "Files not found. The $Files location does not contain any XML files."
 ```
 
 This command uses an Exception object to declare a non-terminating error.
 
 The first command uses a hash table to create the System.Exception object.
-It saves the exception object in the $e variable.
+It saves the exception object in the $E variable.
 You can use a hash table to create any object of a type that has a null constructor.
 
 The second command uses the Write-Error cmdlet to declare a non-terminating error.
-The value of the Exception parameter is the Exception object in the $e variable.
+The value of the Exception parameter is the Exception object in the $E variable.
 
 ## PARAMETERS
 
@@ -164,9 +162,9 @@ Specifies the message text of the error.
 If the text includes spaces or special characters, enclose it in quotation marks.
 You can also pipe a message string to Write-Error.
 
-Specifies the message text of the error. 
+Specifies the message text of the error.
 If the text includes spaces or special characters, enclose it in quotation marks.
-You can also pipe a message string to Write-Error.
+You can also pipe a message string to Write-Error .
 
 ```yaml
 Type: String
@@ -174,7 +172,7 @@ Parameter Sets: NoException
 Aliases: Msg
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
@@ -186,7 +184,7 @@ Parameter Sets: WithException
 Aliases: Msg
 
 Required: False
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
@@ -223,8 +221,42 @@ For information about the error categories, see "ErrorCategory Enumeration" in t
 
 Specifies the category of the error.
 The default value is NotSpecified.
+The acceptable values for this parameter are:
 
-For information about the error categories, see "ErrorCategory Enumeration" in the MSDN (Microsoft Developer Network) library at http://go.microsoft.com/fwlink/?LinkId=143600.
+- NotSpecified
+- OpenError
+- CloseError
+- DeviceError
+- DeadlockDetected
+- InvalidArgument
+- InvalidData
+- InvalidOperation
+- InvalidResult
+- InvalidType
+- MetadataError
+- NotImplemented
+- NotInstalled
+- ObjectNotFound
+- OperationStopped
+- OperationTimeout
+- SyntaxError
+- ParserError
+- PermissionDenied
+- ResourceBusy
+- ResourceExists
+- ResourceUnavailable
+- ReadError
+- WriteError
+- FromStdErr
+- SecurityError
+- ProtocolError
+- ConnectionError
+- AuthenticationError
+- LimitsExceeded
+- QuotaExceeded
+- NotEnabled
+
+For information about the error categories, see ErrorCategory Enumerationhttp://go.microsoft.com/fwlink/?LinkId=143600 (http://go.microsoft.com/fwlink/?LinkId=143600) in MSDN.
 
 ```yaml
 Type: ErrorCategory
@@ -263,7 +295,7 @@ Specifies the object that was being processed when the error occurred.
 Enter the object (such as a string), a variable that contains the object, or a command that gets the object.
 
 Specifies the object that was being processed when the error occurred.
-Enter the object (such as a string), a variable that contains the object, or a command that gets the object.
+Enter the object, a variable that contains the object, or a command that gets the object.
 
 ```yaml
 Type: Object
@@ -280,7 +312,7 @@ Accept wildcard characters: False
 ### -RecommendedAction
 Describes the action that the user should take to resolve or prevent the error.
 
-Describes the action that the user should take to resolve or prevent the error.
+Specifies the action that the user should take to resolve or prevent the error.
 
 ```yaml
 Type: String
@@ -297,7 +329,7 @@ Accept wildcard characters: False
 ### -CategoryActivity
 Describes the action that caused the error.
 
-Describes the action that caused the error.
+Specifies the action that caused the error.
 
 ```yaml
 Type: String
@@ -314,7 +346,7 @@ Accept wildcard characters: False
 ### -CategoryReason
 Explains how or why the activity caused the error.
 
-Explains how or why the activity caused the error.
+Specifies how or why the activity caused the error.
 
 ```yaml
 Type: String
@@ -362,43 +394,12 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -InformationAction
-For information about the error categories, see "ErrorCategory Enumeration" in the MSDN (Microsoft Developer Network) library at http://go.microsoft.com/fwlink/?LinkId=143600.
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: infa
-Accepted values: SilentlyContinue, Stop, Continue, Inquire, Ignore, Suspend
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -InformationVariable
-For information about the error categories, see "ErrorCategory Enumeration" in the MSDN (Microsoft Developer Network) library at http://go.microsoft.com/fwlink/?LinkId=143600.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases: iv
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ## INPUTS
 
 ### System.String
 
 ### System.String
-You can pipe a string that contains an error message to Write-Error.
+You can pipe a string that contains an error message to Write-Error .
 
 ## OUTPUTS
 

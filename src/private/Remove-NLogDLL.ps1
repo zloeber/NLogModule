@@ -1,4 +1,4 @@
-function Remove-NLogDLL
+﻿function Remove-NLogDLL
 {
     <#
     .SYNOPSIS

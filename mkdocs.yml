@@ -1,0 +1,34 @@
+﻿use_directory_urls: false
+site_author: Zachary Loeber
+copyright: NLogModule is licensed under <a href='https://github.com/zloeber/nlogmodule/blob/master/License.md'>this</a> license
+theme: readthedocs
+site_name: NLogModule Docs
+pages:
+- Acknowledgements: Acknowledgements.md
+- ChangeLog: ChangeLog.md
+- Contributing: Contributing.md
+- Index: Index.md
+- README: README.md
+- Additional:
+  - Acknowledgements: Additional/Acknowledgements.md
+  - ChangeLog: Additional/ChangeLog.md
+  - Contributing: Additional/Contributing.md
+  - Index: Additional/Index.md
+- en-US: en-US/
+- Functions:
+  - Get-LogMessageLayout: Functions/Get-LogMessageLayout.md
+  - Get-NewLogConfig: Functions/Get-NewLogConfig.md
+  - Get-NewLogger: Functions/Get-NewLogger.md
+  - Get-NewLogTarget: Functions/Get-NewLogTarget.md
+  - Get-NLogDllLoadState: Functions/Get-NLogDllLoadState.md
+  - Register-NLog: Functions/Register-NLog.md
+  - UnRegister-NLog: Functions/UnRegister-NLog.md
+  - Write-Debug: Functions/Write-Debug.md
+  - Write-Error: Functions/Write-Error.md
+  - Write-Host: Functions/Write-Host.md
+  - Write-Output: Functions/Write-Output.md
+  - Write-Verbose: Functions/Write-Verbose.md
+  - Write-Warning: Functions/Write-Warning.md
+- ReadTheDocs: ReadTheDocs/
+repo_url: https://github.com/zloeber/nlogmodule
+

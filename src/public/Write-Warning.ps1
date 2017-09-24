@@ -1,4 +1,4 @@
-﻿Function Write-Warning {
+﻿function Write-Warning {
 <#
 .SYNOPSIS
     Writes a warning message.

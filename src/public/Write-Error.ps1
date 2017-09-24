@@ -1,4 +1,4 @@
-﻿Function Write-Error {
+﻿function Write-Error {
 <#
 .SYNOPSIS
     Writes an object to the error stream.

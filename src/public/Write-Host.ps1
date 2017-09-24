@@ -1,4 +1,4 @@
-﻿Function Write-Host {
+﻿function Write-Host {
 <#
 .SYNOPSIS
     Writes customized output to a host.

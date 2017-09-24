@@ -1,10 +1,10 @@
-﻿# Run this in an administrative PowerShell prompt to install the NLogModule PowerShell module:
+# Run this in an administrative PowerShell prompt to install the NLogModule PowerShell module:
 #
-# 	iex (New-Object Net.WebClient).DownloadString("https://github.com/zloeber/NLogModule/raw/master/Install.ps1")
+# 	iex (New-Object Net.WebClient).DownloadString("https://github.com/zloeber/nlogmodule/raw/master/Install.ps1")
 
 # Some general variables
 $ModuleName = 'NLogModule'
-$DownloadURL = 'https://github.com/zloeber/NLogModule/raw/master/release/NLogModule-current.zip'
+$DownloadURL = 'https://github.com/zloeber/nlogmodule/raw/master/release/NLogModule-current.zip'
 
 # Download and install the module
 $webclient = New-Object System.Net.WebClient

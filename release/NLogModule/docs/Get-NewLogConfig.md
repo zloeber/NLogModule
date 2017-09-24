@@ -1,10 +1,11 @@
----
+﻿---
 external help file: NLogModule-help.xml
 online version: 
 schema: 2.0.0
 ---
 
 # Get-NewLogConfig
+
 ## SYNOPSIS
 Creates a new configuration in memory
 
