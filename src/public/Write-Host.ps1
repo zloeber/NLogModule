@@ -1,5 +1,5 @@
 ﻿function Write-Host {
-<#
+    <#
 .SYNOPSIS
     Writes customized output to a host.
     
@@ -48,60 +48,59 @@
 #>
 
 
-    [CmdletBinding(HelpUri='http://go.microsoft.com/fwlink/?LinkID=113426', RemotingCapability='None')]
-     param(
-         [Parameter(Position=0, ValueFromPipeline=$true, ValueFromRemainingArguments=$true)]
-         [System.Object]
-         ${Object},
+    [CmdletBinding(HelpUri = 'http://go.microsoft.com/fwlink/?LinkID=113426', RemotingCapability = 'None')]
+    param(
+        [Parameter(Position = 0, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [System.Object]
+        ${Object},
      
-         [switch]
-         ${NoNewline},
+        [switch]
+        ${NoNewline},
      
-         [System.Object]
-         ${Separator},
+        [System.Object]
+        ${Separator},
      
-         [System.ConsoleColor]
-         ${ForegroundColor},
+        [System.ConsoleColor]
+        ${ForegroundColor},
      
-         [System.ConsoleColor]
-         ${BackgroundColor})
+        [System.ConsoleColor]
+        ${BackgroundColor})
      
-     begin
-     {
-         try {
-             $outBuffer = $null
-             if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer))
-             {
-                 $PSBoundParameters['OutBuffer'] = 1
-             }
-             $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand('Microsoft.PowerShell.Utility\Write-Host', [System.Management.Automation.CommandTypes]::Cmdlet)
-             $scriptCmd = {& $wrappedCmd @PSBoundParameters }
-             $steppablePipeline = $scriptCmd.GetSteppablePipeline($myInvocation.CommandOrigin)
-             $steppablePipeline.Begin($PSCmdlet)
-         } catch {
-             throw
-         }
-     }
-     
-     process
-     {
-         try {
-             $steppablePipeline.Process($_)
-         } catch {
-             throw
-         }
-     }
-     
-     end
-     {
-        if ($script:Logger -ne $null) {
-            $Message = [string]$Object
-            $script:Logger.Info("$Message")
+    begin {
+        try {
+            $outBuffer = $null
+            if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
+                $PSBoundParameters['OutBuffer'] = 1
+            }
+            $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand('Microsoft.PowerShell.Utility\Write-Host', [System.Management.Automation.CommandTypes]::Cmdlet)
+            $scriptCmd = {& $wrappedCmd @PSBoundParameters }
+            $steppablePipeline = $scriptCmd.GetSteppablePipeline($myInvocation.CommandOrigin)
+            $steppablePipeline.Begin($PSCmdlet)
         }
-         try {
-             $steppablePipeline.End()
-         } catch {
-             throw
-         }
-     }
+        catch {
+            throw
+        }
+    }
+     
+    process {
+        try {
+            $steppablePipeline.Process($_)
+        }
+        catch {
+            throw
+        }
+    }
+     
+    end {
+        if ($null -ne $script:Logger) {
+            $OutputMessage = @(([string]$Object).Split([Environment]::NewLine) | Where-Object {-not [string]::IsNullOrEmpty($_)}) -join ''
+            $script:Logger.Info($OutputMessage)
+        }
+        try {
+            $steppablePipeline.End()
+        }
+        catch {
+            throw
+        }
+    }
 }

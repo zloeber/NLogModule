@@ -11,23 +11,32 @@ Locale: en-US
 NLog PowerShell wrapper
 
 ## NLogModule Cmdlets
-### [Get-LogMessageLayout](Get-LogMessageLayout.md)
-Sets the log message layout
-
-### [Get-NewLogConfig](Get-NewLogConfig.md)
-Creates a new configuration in memory
-
-### [Get-NewLogger](Get-NewLogger.md)
-Creates a new LogManager instance
-
-### [Get-NewLogTarget](Get-NewLogTarget.md)
-Creates a new logging target
-
 ### [Get-NLogDllLoadState](Get-NLogDllLoadState.md)
 Validate if the NLog Dll is loaded or not.
 
+### [Get-NLogInstance](Get-NLogInstance.md)
+Gets the current nlog instance for the module
+
+### [Get-NLogMessageLayout](Get-NLogMessageLayout.md)
+Sets the log message layout
+
+### [New-NLogConfig](New-NLogConfig.md)
+Creates a new configuration in memory
+
+### [New-NLogConsoleTarget](New-NLogConsoleTarget.md)
+Creates a new console logging target
+
+### [New-NLogFileTarget](New-NLogFileTarget.md)
+Creates a new file logging target
+
+### [New-NLogLogger](New-NLogLogger.md)
+Creates a new LogManager instance
+
+### [New-NLogTarget](New-NLogTarget.md)
+Creates a new logging target
+
 ### [Register-NLog](Register-NLog.md)
-Register the NLog dlls and create a file logging target.
+Start NLog logging with a basic configuration.
 
 ### [UnRegister-NLog](UnRegister-NLog.md)
 UnRegister the NLog Target..

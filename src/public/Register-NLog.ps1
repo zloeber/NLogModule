@@ -1,46 +1,63 @@
 ﻿function Register-NLog {
     <#
     .SYNOPSIS
-        Register the NLog dlls and create a file logging target.        
+    Start NLog logging with a basic configuration.
     .DESCRIPTION
-        Register the NLog dlls and create a file logging target.
+    Start NLog logging with a basic configuration.
     .PARAMETER FileName
-        File to start logging to
-    .PARAMETER loggername
-        An Nlog name (useful for multiple logging targets)
+    File to start logging to
+    .PARAMETER LoggerName
+    An Nlog name (useful for multiple logging targets)
+    .PARAMETER LogLevel
+    Level of logging. Default is Info.
+    .PARAMETER Target
+    An NLog target (created with New-NLogFileTarget or New-NLogConsoleTarget)
     .EXAMPLE
-        Register-NLog -FileName C:\temp\testlogger.log
+    Register-NLog -FileName C:\temp\testlogger.log
     #>
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName='Default')]
     param (
-        [Parameter(Mandatory = $True)]
+        [Parameter(Mandatory = $True, ParameterSetName='Default')]
         [string]$FileName,
-        [Parameter()]
-        [string]$LoggerName = 'TestLogger'
-        
+        [Parameter(ParameterSetName='Default')]
+        [Parameter(ParameterSetName='TargetSupplied')]
+        [string]$LoggerName = 'TestLogger',
+        [Parameter(ParameterSetName='Default')]
+        [Parameter(ParameterSetName='TargetSupplied')]
+        [NLog.LogLevel]$LogLevel = [NLog.LogLevel]::Debug,
+        [Parameter(Mandatory = $True, ParameterSetName='TargetSupplied')]
+        [object]$Target
     )
-    if ($Script:Logger -eq $null) {
-        $debugLog                      = Get-NewLogTarget -targetType "file"
-        $debugLog.ArchiveAboveSize     = 10240000
-        $debugLog.archiveEvery         = "Month"
-        $debugLog.ArchiveNumbering     = "Rolling"    
-        $debugLog.CreateDirs           = $true    
-        $debugLog.FileName             = $FileName
-        $debugLog.Encoding             = [System.Text.Encoding]::GetEncoding("iso-8859-2")
-        $debugLog.KeepFileOpen         = $false
-        $debugLog.Layout               = Get-LogMessageLayout -layoutId 1    
-        $debugLog.maxArchiveFiles      = 1
-        
-        $Script:NLogConfig.AddTarget("file", $debugLog)
-        
-        $rule1 = New-Object NLog.Config.LoggingRule("*", [NLog.LogLevel]::Debug, $debugLog)
+
+    if ($null -eq $Script:Logger) {
+        switch ($PsCmdlet.ParameterSetName) {
+            'default'  {
+                $Target = New-NlogFileTarget -FileName $FileName
+                $Script:NLogConfig.AddTarget("file", $Target)
+            }
+            'TargetSupplied'  {
+                switch ($Target.GetType().Name) {
+                    'FileTarget' {
+                        $Script:NLogConfig.AddTarget("file", $Target)
+                    }
+                    'ColoredConsoleTarget' {
+                        $Script:NLogConfig.AddTarget("console", $Target)
+                    }
+                    'MailTarget' {
+                        $Script:NLogConfig.AddTarget("mail", $Target)
+                    }
+                }
+            }
+        }
+
+        $rule1 = New-Object NLog.Config.LoggingRule("*", $LogLevel, $Target)
         $Script:NLogConfig.LoggingRules.Add($rule1)
 
         # Assign configured Log config to LogManager
         [NLog.LogManager]::Configuration = $Script:NLogConfig
 
         # Create a new Logger
-        $Script:Logger = Get-NewLogger -loggerName $LoggerName
+        $Script:Logger = New-NLogLogger -loggerName $LoggerName
     }
     else {
         Write-Warning 'NlogModule: You must first run UnRegister-NLog!'

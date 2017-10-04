@@ -4,7 +4,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-NewLogTarget
+# New-NLogTarget
 
 ## SYNOPSIS
 Creates a new logging target
@@ -12,7 +12,7 @@ Creates a new logging target
 ## SYNTAX
 
 ```
-Get-NewLogTarget [-TargetType] <String>
+New-NLogTarget [-TargetType] <String>
 ```
 
 ## DESCRIPTION
@@ -22,7 +22,7 @@ Logging targets are required to write down the log messages somewhere
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$myFilelogtarget = Get-NewLogTarget -targetType "file"
+$myFilelogtarget = New-NLogTarget -targetType "file"
 ```
 
 ## PARAMETERS

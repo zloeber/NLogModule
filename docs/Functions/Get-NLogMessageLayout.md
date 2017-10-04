@@ -4,7 +4,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-LogMessageLayout
+# Get-NLogMessageLayout
 
 ## SYNOPSIS
 Sets the log message layout
@@ -12,7 +12,7 @@ Sets the log message layout
 ## SYNTAX
 
 ```
-Get-LogMessageLayout [[-layoutId] <Int32>]
+Get-NLogMessageLayout [[-layoutId] <Int32>]
 ```
 
 ## DESCRIPTION
@@ -24,7 +24,7 @@ I just provided a few examples how log messages can look like
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$myFilelogtarget.Layout  = Get-LogMessageLayout -layoutId 1
+$myFilelogtarget.Layout  = Get-NLogMessageLayout -layoutId 1
 ```
 
 ## PARAMETERS

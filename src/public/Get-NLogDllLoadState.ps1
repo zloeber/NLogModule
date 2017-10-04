@@ -7,7 +7,7 @@
     .EXAMPLE
        Get-NLogDllLoadState
     #>
-    if (-not (get-module | where {($_.Name -eq 'nlog') -or ($_.Name -eq 'Nlog45')})) {
+    if (-not (get-module | Where-Object {($_.Name -eq 'nlog') -or ($_.Name -eq 'Nlog45')})) {
         return $false
     }
     else {

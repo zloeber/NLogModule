@@ -35,9 +35,9 @@ $ThisModuleLoaded = $true
 try {
     $DotNetInstalled = (Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -recurse | 
         Get-ItemProperty -name Version -ea 0 | 
-        Where { $_.PSChildName -match '^(?!S)\p{L}'} | 
-        Select @{n='version';e={[decimal](($_.Version).Substring(0,3))}} -Unique |
-        Sort-Object -Descending | select -First 1).Version
+        Where-Object { $_.PSChildName -match '^(?!S)\p{L}'} | 
+        Select-Object @{n='version';e={[decimal](($_.Version).Substring(0,3))}} -Unique |
+        Sort-Object -Descending | Select-Object -First 1).Version
 }
 catch {
     $DotNetInstalled = 3.5
@@ -61,7 +61,7 @@ catch {
 }
 
 $Logger = $null
-$NLogConfig = Get-NewLogConfig
+$NLogConfig = New-NLogConfig
 
 #region Module Cleanup
 $ExecutionContext.SessionState.Module.OnRemove = {Remove-NLogDLL} 
@@ -69,4 +69,4 @@ $null = Register-EngineEvent -SourceIdentifier ( [System.Management.Automation.P
 #endregion Module Cleanup
 
 # Exported members
-Export-ModuleMember -Variable NLogConfig -Function  'Get-LogMessageLayout', 'Get-NewLogConfig', 'Get-NewLogger', 'Get-NewLogTarget', 'Get-NLogDllLoadState', 'Register-NLog', 'UnRegister-NLog', 'Write-Debug', 'Write-Error', 'Write-Host', 'Write-Output', 'Write-Verbose', 'Write-Warning'
+Export-ModuleMember -Variable NLogConfig -Function 'Get-NLogMessageLayout', 'New-NLogConfig', 'New-NLogLogger', 'Get-NLogTarget', 'Get-NLogDllLoadState', 'Get-NLogInstance', 'Register-NLog', 'UnRegister-NLog', 'Write-Debug', 'Write-Error', 'Write-Host', 'Write-Output', 'Write-Verbose', 'Write-Warning'

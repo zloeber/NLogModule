@@ -1,5 +1,5 @@
 ﻿function Write-Output {
-<#
+    <#
 .SYNOPSIS
     Sends the specified objects to the next command in the pipeline. If the command is the last command in the pipeline, the objects are displayed in the console.
     
@@ -42,52 +42,51 @@
 .OUTPUTS
     System.Management.Automation.PSObject
 #>
-    [CmdletBinding(HelpUri='http://go.microsoft.com/fwlink/?LinkID=113427', RemotingCapability='None')]
-     param(
-         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true, ValueFromRemainingArguments=$true)]
-         [AllowEmptyCollection()]
-         [AllowNull()]
-         [psobject[]]${InputObject},
-         [switch]${NoEnumerate})
+    [CmdletBinding(HelpUri = 'http://go.microsoft.com/fwlink/?LinkID=113427', RemotingCapability = 'None')]
+    param(
+        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true, ValueFromRemainingArguments = $true)]
+        [AllowEmptyCollection()]
+        [AllowNull()]
+        [psobject[]]${InputObject},
+        [switch]${NoEnumerate})
      
-     begin
-     {
-         try {
+    begin {
+        try {
             Get-CallerPreference -Cmdlet $PSCmdlet -SessionState $ExecutionContext.SessionState
-             $outBuffer = $null
-             if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer))
-             {
-                 $PSBoundParameters['OutBuffer'] = 1
-             }
-             $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand('Microsoft.PowerShell.Utility\Write-Output', [System.Management.Automation.CommandTypes]::Cmdlet)
-             $scriptCmd = {& $wrappedCmd @PSBoundParameters }
-             $steppablePipeline = $scriptCmd.GetSteppablePipeline($myInvocation.CommandOrigin)
-             $steppablePipeline.Begin($PSCmdlet)
-         } catch {
-             throw
-         }
-     }
-     
-     process
-     {
-         try {
-             $steppablePipeline.Process($_)
-         } catch {
-             throw
-         }
-     }
-     
-     end
-     {
-        if ($script:Logger -ne $null) {
-            $OutputMessage = [string]$InputObject
-            $script:Logger.Info("$OutputMessage")
+            $outBuffer = $null
+            if ($PSBoundParameters.TryGetValue('OutBuffer', [ref]$outBuffer)) {
+                $PSBoundParameters['OutBuffer'] = 1
+            }
+            $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand('Microsoft.PowerShell.Utility\Write-Output', [System.Management.Automation.CommandTypes]::Cmdlet)
+            $scriptCmd = {& $wrappedCmd @PSBoundParameters }
+            $steppablePipeline = $scriptCmd.GetSteppablePipeline($myInvocation.CommandOrigin)
+            $steppablePipeline.Begin($PSCmdlet)
         }
-         try {
-             $steppablePipeline.End()
-         } catch {
-             throw
-         }
+        catch {
+            throw
+        }
+    }
+     
+    process {
+        try {
+            $steppablePipeline.Process($_)
+        }
+        catch {
+            throw
+        }
+    }
+     
+    end {
+        if ($null -ne $script:Logger) {
+            $OutputMessage = @(([string]$InputObject).Split([Environment]::NewLine) | Where-Object {-not [string]::IsNullOrEmpty($_)}) -join ''
+            $script:Logger.Info($OutputMessage)
+        }
+        try {
+            $steppablePipeline.End()
+        }
+        catch {
+            throw
+        }
 
-     }
+    }
 }

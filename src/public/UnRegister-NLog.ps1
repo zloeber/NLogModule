@@ -1,5 +1,5 @@
 ﻿function UnRegister-NLog {
-        <#
+    <#
     .SYNOPSIS
         UnRegister the NLog Target..
     .DESCRIPTION
@@ -12,7 +12,7 @@
     [CmdletBinding()]
     param ()
     if ($Script:Logger -ne $null) {
-        $Script:NLogConfig = Get-NewLogConfig
+        $Script:NLogConfig = New-NLogConfig
         $Script:Logger = $null
     }
     else {

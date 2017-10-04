@@ -4,25 +4,25 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-NewLogConfig
+# Get-NLogInstance
 
 ## SYNOPSIS
-Creates a new configuration in memory
+Gets the current nlog instance for the module
 
 ## SYNTAX
 
 ```
-Get-NewLogConfig
+Get-NLogInstance
 ```
 
 ## DESCRIPTION
-Important to add logging behaviour and log targets to your LogManager
+Gets the current nlog instance for the module
 
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$myLogconfig = Get-NewLogConfig()
+$myCurrentNlog = Get-NLogInstance
 ```
 
 ## PARAMETERS

@@ -4,31 +4,31 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-NewLogTarget
+# New-NLogLogger
 
 ## SYNOPSIS
-Creates a new logging target
+Creates a new LogManager instance
 
 ## SYNTAX
 
 ```
-Get-NewLogTarget [-TargetType] <String>
+New-NLogLogger [-LoggerName] <String>
 ```
 
 ## DESCRIPTION
-Logging targets are required to write down the log messages somewhere
+Important to log messages to file, mail, console etc.
 
 ## EXAMPLES
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-$myFilelogtarget = Get-NewLogTarget -targetType "file"
+$myLogger = New-NLogLogger
 ```
 
 ## PARAMETERS
 
-### -TargetType
-Type of target to return, Console, file, or mail are supported.
+### -LoggerName
+Name of the logger to get
 
 ```yaml
 Type: String

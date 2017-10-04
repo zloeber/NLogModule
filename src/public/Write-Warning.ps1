@@ -1,5 +1,5 @@
 ﻿function Write-Warning {
-<#
+    <#
 .SYNOPSIS
     Writes a warning message.
     
@@ -59,16 +59,15 @@
 #>
 
 
-    [CmdletBinding(HelpUri='http://go.microsoft.com/fwlink/?LinkID=113430', RemotingCapability='None')]
+    [CmdletBinding(HelpUri = 'http://go.microsoft.com/fwlink/?LinkID=113430', RemotingCapability = 'None')]
     param(
-        [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
+        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true)]
         [Alias('Msg')]
         [AllowEmptyString()]
         [string]${Message}
     )
      
-    begin
-    {
+    begin {
         Get-CallerPreference -Cmdlet $PSCmdlet -SessionState $ExecutionContext.SessionState
         try {
             $outBuffer = $null
@@ -85,8 +84,7 @@
         }
     }
      
-    process
-    {
+    process {
         try {
             $steppablePipeline.Process($_)
         }
@@ -97,7 +95,8 @@
      
     end {
         if ($script:Logger -ne $null) {
-            $script:Logger.Warn("$Message")
+            $OutputMessage = @(([string]$Message).Split([Environment]::NewLine) | Where-Object {-not [string]::IsNullOrEmpty($_)}) -join ''
+            $script:Logger.Warn("$OutputMessage")
         }
         try {
             $steppablePipeline.End()
